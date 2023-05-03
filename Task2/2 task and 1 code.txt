@@ -1,0 +1,24 @@
+Task 2
+
+A word in which the number of different letters is defined.
+
+Code:
+
+using System;
+
+class Program {
+    static void Main(string[] args) {
+        string word = "присудок"; // замінити на бажане слово
+         int uniqueChars = 0;
+         bool[] charSeen = new bool[65536]; // створюємо масив для зберігання
+інформації про те, бачили ми даний символ раніше чи ні
+         foreach (char c in word) {
+             if (!charSeen[c]) {
+                  charSeen[c] = true;
+                  uniqueChars++;
+             }
+         }
+         Console.WriteLine("Кількість різних літер у слові \"{0}\": {1}", 
+word, uniqueChars);
+     }
+}

@@ -1,0 +1,205 @@
+Task 3
+
+Code 1
+
+Write a program that enters the number A from the keyboard and prints the
+number ofelements of the given array greater than A.
+
+using System;
+
+class Program {
+static void Main(string[] args) {
+Console.Write("Введіть число A: ");
+int a = int.Parse(Console.ReadLine());
+
+Console.Write("Введіть розмір масиву: ");
+int n = int.Parse(Console.ReadLine());
+
+int[] arr = new int[n];
+ 
+Console.WriteLine("Введіть елементи масиву:");
+
+for (int i = 0; i < n; i++) {
+arr[i] = int.Parse(Console.ReadLine());
+}
+
+int count = 0;
+
+for (int i = 0;
+i < n; i++) {
+if (arr[i] > a) {
+count++;
+}
+}
+Console.WriteLine("Кількість елементів масиву, більших за {0}: {1}", a, count);
+
+Console.ReadLine();
+}
+}
+
+
+Code 2
+
+Create a numeric array containing 30 elements. Sort the elements of the
+array in two ways - one from the lecture, the other to disassemble
+independently and apply. The sort method, of course, cannot be used.
+
+using System;
+
+class Program {
+static void Main(string[] args) {
+// Створюємо масив з 30 випадкових чисел
+int[] arr = new int[30];
+Random random = new Random();
+
+for (int i = 0; i < 30; i++) {
+arr[i] = random.Next(100);
+}
+
+// Сортування методом бульбашки
+for (int i = 0; i < arr.Length - 1; i++) {
+for (int j = 0; j < arr.Length - i - 1; j++) {
+if (arr[j] > arr[j + 1]) {
+int temp = arr[j];
+arr[j] = arr[j + 1];
+arr[j + 1] = temp;
+}
+}
+}
+
+// Друкуємо відсортований масив
+Console.WriteLine("Масив, відсортований методом бульбашки:");
+for (int i = 0; i < 30; i++) {
+Console.Write(arr[i] + " ");
+}
+Console.WriteLine();
+
+// Сортування методом вставки
+for (int i = 1; i < arr.Length; i++) {
+int j = i;
+
+while (j > 0 && arr[j - 1] > arr[j]) {
+int temp = arr[j];
+arr[j] = arr[j - 1];
+arr[j - 1] = temp;
+j--;
+}
+}
+
+// Друкуємо відсортований масив
+Console.WriteLine("Масив, відсортований методом вставки:");
+for (int i = 0; i < 30; i++) {
+Console.Write(arr[i] + " ");
+}
+Console.WriteLine();
+
+Console.ReadLine();
+}
+}
+
+Code 3
+
+Display the matrix symmetrically with respect to the main diagonal.
+The range of values ​​is -150..100.
+
+int[,] matrix = new int[,]
+{
+{-1, 2, -3, 4},
+{ 5, -6, 7, -8},
+{ 9, 10, 11,-12},
+{-13,14,-15, 16}
+};
+
+int n = matrix.GetLength(0);
+int m = matrix.GetLength(1);
+
+for (int i = 0; i < n / 2; i++)
+{
+for (int j = 0; j < m; j++)
+{
+matrix[n - i - 1, j] = matrix[i, j];
+}
+}
+
+// вивід матриці
+for (int i = 0; i < n; i++)
+{
+for (int j = 0; j < m; j++)
+{
+Console.Write(matrix[i, j] + "\t");
+}
+Console.WriteLine();
+}
+
+Code 4
+
+Calculate the number of sections in each line that form continuous sequences of numbers
+with non-decreasing values. The range of values ​​is -150..100.
+
+using System;
+
+class Program {
+static void Main(string[] args) {
+int[,] matrix = new int[6, 6];
+Random random = new Random();
+
+// Заповнюємо матрицю випадковими числами в діапазоні від -150 до 100
+for (int i = 0; i < matrix.GetLength(0); i++) {
+for (int j = 0; j < matrix.GetLength(1); j++) {
+matrix[i, j] = random.Next(-150, 101);
+}
+}
+
+// Виводимо початкову матрицю на екран
+Console.WriteLine("Початкова матриця:");
+for (int i = 0; i < matrix.GetLength(0); i++) {
+for (int j = 0; j < matrix.GetLength(1); j++) {
+Console.Write(matrix[i, j] + " ");
+}
+Console.WriteLine();
+}
+
+// Знаходимо неперервну послідовність додатних чисел у кожному рядку з максимальною сумою
+for (int i = 0; i < matrix.GetLength(0); i++) {
+int start = -1;
+int end = -1;
+int sum = 0;
+int maxSum = 0;
+
+for (int j = 0; j < matrix.GetLength(1); j++) {
+if (matrix[i, j] > 0) {
+if (start == -1) {
+start = j;
+}
+end = j;
+sum += matrix[i, j];
+}
+else {
+if (sum > maxSum) {
+maxSum = sum;
+start = start;
+end = j - 1;
+}
+sum = 0;
+}
+}
+
+
+if (sum > maxSum) {
+maxSum = sum;
+start = start;
+end = matrix.GetLength(1) - 1;
+}
+
+if (maxSum > 0) {
+Console.WriteLine($"Найбільша сума додатніх чисел у рядку {i}, починаючи з індексу {start} та
+закінчуючи індексом {end}. Сума дорівнює {maxSum}.");
+}
+else {
+Console.WriteLine($"У рядку {i} відсутні неперервні послідовності додатніх чисел.");
+}
+}
+
+Console.ReadLine();
+}
+}

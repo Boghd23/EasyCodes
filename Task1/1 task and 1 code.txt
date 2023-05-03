@@ -1,0 +1,125 @@
+1 task
+
+Create a list with a flag, which stores the names of 6 companies selling software 
+products - 3 companies in Kyiv and 3 companies in Kharkiv. Display a list of companies
+using constants (number - name). Allow the user to enter the numbers of known 
+companies in the form of a list, separating the numbers with commas. Display the name of the 
+author of the program, lists of companies separately for each city.
+
+Code:
+
+using System;
+
+using System.Collections.Generic;
+
+using System.Linq;
+
+namespace CompanyList
+
+{
+
+class Program
+
+{
+
+enum KyivCompanies
+
+{
+
+GlobalLogic = 1,
+
+SoftServe = 2,
+
+EPAM = 3,
+
+}
+
+enum KharkivCompanies
+
+{
+
+Miratech = 4,
+
+Ciklum = 5,
+
+NIXSolutions = 6,
+
+}
+
+static void Main(string[] args)
+
+{
+
+Console.Write("Введіть номери для показу відомих фірм через кому 1-6: ");
+
+string userInput = Console.ReadLine();
+
+int[] userChoices = userInput.Split(',').Select(choice => int.Parse(choice.Trim())).ToArray();
+
+List<string> kyivChoices = new List<string>();
+
+List<string> kharkivChoices = new List<string>();
+
+foreach (int choice in userChoices)
+
+{
+
+if (Enum.IsDefined(typeof(KyivCompanies), choice))
+
+{
+
+kyivChoices.Add(Enum.GetName(typeof(KyivCompanies), choice));
+
+}
+
+else if (Enum.IsDefined(typeof(KharkivCompanies), choice))
+
+{
+
+kharkivChoices.Add(Enum.GetName(typeof(KharkivCompanies), choice));
+
+}
+
+}
+
+if (kyivChoices.Count > 0)
+
+{
+
+Console.WriteLine("Фірми м. Київ:");
+
+foreach (string choice in kyivChoices)
+
+{
+
+Console.WriteLine(choice);
+
+}
+
+}
+
+if (kharkivChoices.Count > 0)
+
+{
+
+Console.WriteLine("Фірми м. Харків:");
+
+foreach (string choice in kharkivChoices)
+
+{
+
+Console.WriteLine(choice);
+
+}
+
+}
+
+Console.WriteLine("Програму створив Бірченко Богдан.");
+
+Console.ReadKey();
+
+}
+
+}
+
+}
